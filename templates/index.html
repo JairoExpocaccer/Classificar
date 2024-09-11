@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+    <title>Análise de crédito</title>
+</head>
+
+<body>
+    {% if result is not none %}
+    <div class="user-data">
+        <h3>Dados Enviados:</h3>
+        <p>CreditMix: {{ request.form['credit_mix'] }} || Month: {{ request.form['month'] }} || Occupation: {{ request.form['occupation'] }} || Delay_from_due_date: {{ request.form['Delay_from_due_date'] }} ||
+            Monthly_Inhand_Salary: {{ request.form['Monthly_Inhand_Salary'] }} || Num_Bank_Accounts: {{ request.form['Num_Bank_Accounts'] }} || Interest_Rate: {{ request.form['Interest_Rate'] }} ||
+        <p> Num_Credit_Inquiries: {{ request.form['Num_Credit_Inquiries'] }} || Credit_Utilization_Ratio: {{ request.form['Credit_Utilization_Ratio'] }} || Num_Credit_Card: {{ request.form['Num_Credit_Card'] }} || Payment_of_Min_Amount: {{ request.form['Payment_of_Min_Amount'] }} ||
+            Total_EMI_per_month: {{ request.form['Total_EMI_per_month'] }} || Payment_Behaviour: {{ request.form['Payment_Behaviour'] }}</p>   
+    </div>
+
+    {% if result == "Poor" or request.form['credit_mix'] == "Bad" %}
+    <p>Result: Poor</p>
+{% elif result == "Good" %}
+    <p>Result: Good</p>
+{% elif result == "Standard" %}
+    <p>Result: Standard</p>
+{% endif %}
+
+    {% endif %}
+    
+
+    <form  method="post">
+      <!-- <label for="m_credit_card" title="m_credit_card">Credito:</label>
+        <input type="text" id="m_credit_card" name="m_credit_card" required>
+    --> 
+
+        <label for="credit_mix" title="credit_mix">Combinação de crédito</label>
+        <select id="credit_mix" name="credit_mix" required>
+            <option value="Good">Bom</option>
+            <option value="Standard">Padrão</option>
+            <option value="bad">Ruim</option>
+            <option value="_">"Indefinido"</option>
+        </select>
+
+        <label for="Delay_from_due_date" title="Delay_from_due_date">Atrasos de pagamento:</label>
+        <input type="float" id="Delay_from_due_date" name="Delay_from_due_date" required>
+        
+        <label for="Interest_Rate" title="Interest_Rate">Taxa de juros:</label>
+        <input type="float" id="Interest_Rate" name="Interest_Rate" required><br>
+
+        <label for="Num_Credit_Inquiries" title="Num_Credit_Inquiries">Número de crédito consultas:</label>
+        <input type="text" id="Num_Credit_Inquiries" name="Num_Credit_Inquiries" required>
+
+
+        <label for="Num_Bank_Accounts" title="Num_Bank_Accounts">Número de contas bancárias:</label>
+        <input type="text" id="Num_Bank_Accounts" name="Num_Bank_Accounts" required><br>
+        
+        <label for="Num_Credit_Card" title="Num_Credit_Card">Quantidade de Cartão de crédito:</label>
+        <input type="float" id="Num_Credit_Card" name="Num_Credit_Card" required>
+
+        <label for="Total_EMI_per_month" title="Total_EMI_per_month">EMI total por mês:</label>
+        <input type="text" id="Total_EMI_per_month" name="Total_EMI_per_month" required><br>
+
+        <label for="Credit_Utilization_Ratio" title="Credit_Utilization_Ratio">Taxa de utilização de crédito:</label>
+        <input type="float" id="Credit_Utilization_Ratio" name="Credit_Utilization_Ratio" required>
+
+        <label for="Monthly_Inhand_Salary" title="Monthly_Inhand_Salary">Salário mensal mensal:</label>
+        <input type="float" id="Monthly_Inhand_Salary" name="Monthly_Inhand_Salary" required> <br>
+
+        <label for="Payment_of_Min_Amount" title="Payment_of_Min_Amount"> Pagamento do Valor Mínimo:</label>
+        <select id="Payment_of_Min_Amount" name="Payment_of_Min_Amount" required>
+            <option value="no">no</option>
+            <option value="yes">yes</option>
+            <option value="NM">NM</option>
+        </select>
+
+        <label for="Payment_Behaviour" title="Payment_Behaviour">Comportamento de pagamento:</label>
+        <select id="Payment_Behaviour" name="Payment_Behaviour" required>
+            <option value="High_spent_Small_value_payments" title="High_spent_Small_value_payments">Alto gasto em pagamentos de pequeno valor</option>
+            <option value="High_spent_Medium_value_payments" title="High_spent_Medium_value_payments">Altos gastos Pagamentos de valor médio</option>
+            <option value="High_spent_Large_value_payments" title="High_spent_Large_value_payments">Altos gastos Pagamentos de grande valor</option>
+            <option value="Low_spent_Large_value_payments" title="Low_spent_Large_value_payments">Baixo gasto em pagamentos de grande valor</option>
+            <option value="Low_spent_Medium_value_payments" title="Low_spent_Medium_value_payments">Baixo gasto Pagamentos de valor médio</option>
+            <option value="Low_spent_Small_value_payments" title="Low_spent_Small_value_payments">Baixo gasto Pagamentos de pequeno valor</option>
+            <option value="!@9#%8" title="!@9#%8">Indefinido</option>                
+        </select><br>
+
+        <label for="month" title="month">Mês:</label>
+        <select id="month" name="month" required>
+            <option value="January">Janeiro</option>
+            <option value="February">Fevereiro</option>
+            <option value="March">Março</option>
+            <option value="April">Abril</option>
+            <option value="May">Maio</option>
+            <option value="June">Junho</option>
+            <option value="July">Julho</option>
+            <option value="August">Agosto</option>
+            <option value="September">Setembro</option>
+            <option value="October">Outubro</option>
+            <option value="November">Novembro</option>
+            <option value="December">Dezembro</option>
+        </select>
+
+        <label for="occupation" title="occupation">Ocupação</label>
+        <select id="occupation" name="occupation" required>
+            <option value="Lawyer"title="">Advogado</option>
+            <option value="Architect">Arquiteto</option>
+            <option value="Accountant">Contador</option>
+            <option value="Scientist">Cientista</option>
+            <option value="Developer">Desenvolvedor</option>
+            <option value="Doctor">Médico</option>
+            <option value="Entrepreneur">Empresário</option>
+            <option value="Engineer">Engenheiro</option>
+            <option value="Writer">Escritor</option>
+            <option value="Media_Manager">Gerente de Mídia</option>
+            <option value="Manager">Gerente</option>
+            <option value="_______">Indefinido</option>
+            <option value="Journalist">Jornalista</option>
+            <option value="Mechanic">Mecânico</option>
+            <option value="Musician">Músico</option>
+            <option value="Teacher">Professor</option>
+        </select>
+
+        <button type="submit">Analyze Credit</button>
+    </form>
+</body>
+
+</html>
